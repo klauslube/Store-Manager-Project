@@ -7,6 +7,8 @@ const validators = {
     
     next();
   },
+
+  // validateNewProduct: async (req, _res, next) =>
 };
 
 module.exports = validators;
