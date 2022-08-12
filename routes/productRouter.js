@@ -8,4 +8,6 @@ route.get('/', productController.getAll);
 
 route.get('/:id', productValidator.validateProduct, productController.getById);
 
+route.post('/', productController.create);
+
 module.exports = route;

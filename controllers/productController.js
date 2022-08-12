@@ -11,8 +11,16 @@ const productController = {
     
     const product = await productService.getById(id);
     if (!product) return res.status(404).json({ message: 'Product not found' });
-    
+
     res.status(200).json(product);
+  },
+
+  create: async (req, res) => {
+    // console.log(req.body);
+    const { name } = req.body;
+
+    const product = await productService.create(name);
+    res.status(201).json(product);
   },
 };
 
