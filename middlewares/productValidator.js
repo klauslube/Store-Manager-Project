@@ -1,14 +1,19 @@
-const CustomError = require('../Error/CustomError');
+const productSchema = require('./productSchema');
 
-const validators = {
-  validateProduct: async (req, _res, next) => {
-    const { id } = req.params;
-    if (!id) throw new CustomError(404, 'invalidData', 'id invalido'); 
-    
+  const validateProduct = (product) => {
+    const isValid = productSchema.validate(product);
+    return isValid;
+  };
+
+  const productMiddleware = (req, res, next) => {
+    const product = { ...req.body };
+    const { error } = validateProduct(product);
+
+    if (error) {
+      const [code, message] = error.message.split('|');
+      return res.status(Number(code)).json({ message });
+    }
     next();
-  },
+  };
 
-  // validateNewProduct: async (req, _res, next) =>
-};
-
-module.exports = validators;
+module.exports = productMiddleware;

@@ -6,8 +6,8 @@ const route = Router();
 
 route.get('/', productController.getAll);
 
-route.get('/:id', productValidator.validateProduct, productController.getById);
+route.get('/:id', productController.getById);
 
-route.post('/', productController.create);
+route.post('/', productValidator, productController.create);
 
 module.exports = route;
