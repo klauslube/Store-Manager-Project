@@ -2,12 +2,25 @@ const salesService = require('../services/salesService');
 
 const salesController = {
   createSale: async (req, res) => {
-    // const [{ productId, quantity }] = req.body;
-    const sale = await salesService.createSale(req.body);
-    // if (!productId) return res.status(404).json({ message: 'Product not found' });
+    const sales = await salesService.createSale(req.body);
 
-    return res.status(201).json(sale);
+    return res.status(201).json(sales);
   },
+
+  getAll: async (_req, res) => {
+    const sales = await salesService.getAll();
+    return res.status(200).json(sales);
+  },
+
+  getById: async (req, res) => {
+    const { id } = req.params;
+    
+    const sale = await salesService.getById(id);
+    if (!sale) return res.status(404).json({ message: 'Sale not found' });
+
+    return res.status(200).json(sale);
+  },
+
 };
 
 module.exports = salesController;

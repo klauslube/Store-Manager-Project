@@ -7,4 +7,8 @@ const route = Router();
 
 route.post('/', salesMiddleware, checkProductId, salesController.createSale);
 
+route.get('/', salesController.getAll);
+
+route.get('/:id', salesController.getById);
+
 module.exports = route;

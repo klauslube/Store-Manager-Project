@@ -8,7 +8,6 @@ const validateSale = (sale) => {
 
 const salesMiddleware = (req, res, next) => {
   const product = [...req.body];
-  // console.log(product);
     const { error } = validateSale(product);
 
     if (error) {
