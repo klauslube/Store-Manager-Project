@@ -1,9 +1,10 @@
 const { Router } = require('express');
 const salesController = require('../controllers/salesController');
-const salesMiddleware = require('../middlewares/salesValidator');
+const { salesMiddleware, checkProductId } = require('../middlewares/salesValidator');
+// const checkProductId = require('../middlewares/salesValidator');
 
 const route = Router();
 
-route.post('/', salesMiddleware, salesController.create);
+route.post('/', salesMiddleware, checkProductId, salesController.createSale);
 
 module.exports = route;

@@ -19,6 +19,10 @@ const productService = {
     const product = { id, name };
     return product;
   },
+  check: async (productId) => {
+    const product = await productModel.getById(productId);
+    if (!product) return false;
+  },
 };
 
 module.exports = productService;

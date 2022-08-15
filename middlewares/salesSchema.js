@@ -5,8 +5,8 @@ const salesSchema = joi.array().items(joi.object({
     'any.required': '400|"productId" is required', 
   }),
   quantity: joi.number().min(1).required().messages({
-    'any.required': '400|"quantity is required',
-    'number.min': '422|"quantity must be greater than or equalto 1"',
+    'any.required': '400|"quantity" is required',
+    'number.min': '422|"quantity" must be greater than or equal to 1',
   }),
 }));
 

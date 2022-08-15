@@ -1,13 +1,14 @@
+const productService = require('../services/productService');
 const salesSchema = require('./salesSchema');
 
-const validateSale = (product) => {
-  const isValid = salesSchema.validate(product);
+const validateSale = (sale) => {
+  const isValid = salesSchema.validate(sale);
   return isValid;
 };
 
 const salesMiddleware = (req, res, next) => {
   const product = [...req.body];
-  console.log(product);
+  // console.log(product);
     const { error } = validateSale(product);
 
     if (error) {
@@ -18,4 +19,17 @@ const salesMiddleware = (req, res, next) => {
     next();
   };
 
-module.exports = salesMiddleware;
+const checkProductId = async (req, res, next) => {
+  const saleArr = req.body;
+  console.log(saleArr);
+  const response = await Promise.all(saleArr.map((sale) => productService.check(sale.productId)));
+  console.log(response);
+
+  if (response.some((r) => r === false)) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+
+  next();
+};
+
+module.exports = { salesMiddleware, checkProductId };
