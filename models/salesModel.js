@@ -34,7 +34,8 @@ const salesModel = {
     WHERE sp.sale_id = ?
     ORDER BY sale_id, product_id`;
      const [result] = await connection.query(query,
-    [id]);
+       [id]);
+    console.log('resultModel', result);
     if (result.length === 0) return null;
     return result;
   },
@@ -43,6 +44,17 @@ const salesModel = {
     await connection.query('DELETE FROM StoreManager.sales WHERE id  = ?', [id]);
     return { id };
   },
+    
+  update: async (saleId, productId, quantity) => {
+      console.log('saleId', saleId, 'productid', productId, 'quantity', quantity);
+      await connection.query(`UPDATE StoreManager.sales_products 
+      SET product_id = ?, quantity = ? 
+      WHERE sale_id = ? AND product_id = ?`,
+      [productId, quantity, saleId, productId]);
+    // console.log();
+    return { productId, quantity };
+  },  
+    
 };
 
 module.exports = salesModel;

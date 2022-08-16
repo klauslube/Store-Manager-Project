@@ -28,6 +28,15 @@ const salesController = {
     return res.status(204).send();
   },
 
+    update: async (req, res) => {
+    const { id } = req.params;
+      const updatedSale = await salesService.update(id, req.body);
+      console.log(updatedSale);
+    if (!updatedSale) return res.status(404).json({ message: 'Sale not found' });
+    
+    return res.status(200).json(updatedSale);
+  }, 
+   
 };
 
 module.exports = salesController;
