@@ -21,6 +21,13 @@ const salesController = {
     return res.status(200).json(sale);
   },
 
+   delete: async (req, res) => {
+    const { id } = req.params;
+    const deletedSale = await salesService.delete(id);
+    if (!deletedSale) return res.status(404).json({ message: 'Sale not found' });
+    return res.status(204).send();
+  },
+
 };
 
 module.exports = salesController;

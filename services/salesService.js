@@ -18,6 +18,14 @@ const salesService = {
      if (!sale) return null;
     return sale;
   },
+
+  delete: async (id) => {
+    const checkId = await salesModel.getById(id);
+    if (!checkId) return null;
+    const response = await salesModel.delete(id);
+    return response;
+  },
+
 };
 
 module.exports = salesService;

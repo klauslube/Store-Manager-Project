@@ -38,6 +38,11 @@ const salesModel = {
     if (result.length === 0) return null;
     return result;
   },
+
+    delete: async (id) => {
+    await connection.query('DELETE FROM StoreManager.sales WHERE id  = ?', [id]);
+    return { id };
+  },
 };
 
 module.exports = salesModel;
