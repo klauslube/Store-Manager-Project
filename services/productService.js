@@ -30,6 +30,12 @@ const productService = {
 
     return response;
   },
+  delete: async (id) => {
+    const checkId = await productModel.getById(id);
+    if (!checkId) return null;
+    const response = await productModel.delete(id);
+    return response;
+  },
 };
 
 module.exports = productService;

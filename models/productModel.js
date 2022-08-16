@@ -22,11 +22,15 @@ const productModel = {
   },
 
   update: async (id, name) => {
-      console.log(id);
       await connection.query(`UPDATE StoreManager.products SET name = ? 
     WHERE id = ?`,
       [name, id]);
     return { id, name };
+  },
+
+  delete: async (id) => {
+    await connection.query('DELETE FROM StoreManager.products WHERE id  = ?', [id]);
+    return { id };
   },
 
 };
