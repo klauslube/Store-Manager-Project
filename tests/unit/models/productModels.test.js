@@ -24,24 +24,25 @@ describe('Teste Products Model', () => {
   beforeEach(sinon.restore)
    
   describe('teste de getAll',() => {
-    test('retorna todos os produtos num array', async () => {
+    it('retorna todos os produtos num array', async () => {
       sinon.stub(connection, 'query').resolves(mockProducts);
       
       const product = await productModel.getAll();
-      expect(product).to.be.a('array');
+      expect(product).to.be.an('array');
       expect(product).to.have.length(3);
       expect(product).to.be.equal(mockProducts);
     })
-    test('retorna null', async () => {
+    it('retorna null', async () => {
       sinon.stub(connection, 'query').resolves(mockProducts);
       const product = await productModel.getAll();
+      expect(product).to.be.empty;
       expect(product).to.equal(undefined);  
     })
   });
 
   describe('teste de getById', () => {
     describe('ao achar produto com id informado', () => {
-      test('retorna o produto', async () => {
+      it('retorna o produto', async () => {
         const query = { "id": 1, "name": "Martelo de Thor" }
         sinon.stub(connection, 'query').resolves(query);
         const product = await productModel.getById(1);
@@ -51,7 +52,7 @@ describe('Teste Products Model', () => {
     })
 
     describe('ao não achar produto com id informado', () => {
-      test('retorna status e message de produto nao encontrado ', async () => {
+      it('retorna status e message de produto nao encontrado ', async () => {
         const query = [[]];
         sinon.stub(connection, 'query').resolves(query);
         const product = await productModel.getById(999);

@@ -27,9 +27,7 @@ const salesService = {
   },
 
   update: async (saleId, saleArr) => {
-    console.log(saleId);
     const checkId = await salesModel.getById(saleId);
-    console.log(checkId);
     if (!checkId) return null;
     const sales = await Promise
       .all(saleArr

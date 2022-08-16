@@ -46,13 +46,11 @@ const salesModel = {
   },
     
   update: async (saleId, productId, quantity) => {
-      console.log('saleId', saleId, 'productid', productId, 'quantity', quantity);
-      await connection.query(`UPDATE StoreManager.sales_products 
-      SET product_id = ?, quantity = ? 
-      WHERE sale_id = ? AND product_id = ?`,
-      [productId, quantity, saleId, productId]);
-    // console.log();
-    return { productId, quantity };
+    await connection.query(`UPDATE StoreManager.sales_products 
+    SET product_id = ?, quantity = ? 
+    WHERE sale_id = ? AND product_id = ?`,
+    [productId, quantity, saleId, productId]);
+  return { productId, quantity };
   },  
     
 };
