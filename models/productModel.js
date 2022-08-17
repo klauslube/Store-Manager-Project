@@ -4,7 +4,7 @@ const productModel = {
   getAll: async () => {
     const [products] = await connection
       .query('SELECT * FROM StoreManager.products ORDER BY id');
-  
+
     return products;
   },
 

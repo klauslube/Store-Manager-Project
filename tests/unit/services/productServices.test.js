@@ -2,7 +2,7 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 
 const connection = require('../../../models/connection');
-const productService = require('../../../models/productModel');
+const productService = require('../../../services/productService');
 
 const mockProducts = [
 	{
@@ -24,17 +24,17 @@ describe('Teste Products Service', () => {
    
   describe('teste de getAll',() => {
     it('retorna todos os produtos', async () => {
-      sinon.stub(connection, 'query').resolves(mockProducts);
+      sinon.stub(connection, 'query').resolves([mockProducts]);
       
-      const model = await productModel.getAll();
-      expect(model).to.be.a('array');
-      expect(model).to.have.length(3);
-      expect(model).to.be.equal(mockProducts);
+      const response = await productService.getAll();
+      expect(response).to.be.an('array');
+      expect(response).to.have.length(3);
+      expect(response).to.be.equal(mockProducts);
     })
-    it('retorna null', async () => {
-      sinon.stub(connection, 'query').resolves(mockProducts);
-      const model = await productModel.getAll();
-      expect(model).to.equal(undefined);  
+    it('retorna undefined', async () => {
+      sinon.stub(connection, 'query').resolves([]);
+      const response = await productService.getAll();
+      expect(response).to.equal(undefined);  
     })
   });
 
@@ -42,10 +42,10 @@ describe('Teste Products Service', () => {
     describe('ao achar produto com id informado', () => {
       it('retorna o produto', async () => {
         const query = { "id": 1, "name": "Martelo de Thor" }
-        sinon.stub(connection, 'query').resolves(query);
-        const product = await productModel.getById(1);
+        sinon.stub(connection, 'query').resolves([[query]]);
+        const product = await productService.getById(1);
         expect(product).to.be.a('object');
-        expect(product).to.be.all.keys('id', 'name');
+        expect(product).to.be.all.keys('id','name');
       })
     })
 
@@ -53,7 +53,7 @@ describe('Teste Products Service', () => {
       it('retorna status e message de produto nao encontrado ', async () => {
         const query = [[]];
         sinon.stub(connection, 'query').resolves(query);
-        const product = await productModel.getById(999);
+        const product = await productService.getById(999);
         expect(product).to.equal(null);
       })
     })

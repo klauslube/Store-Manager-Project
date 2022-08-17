@@ -9,7 +9,7 @@ const productService = {
 
   getById: async (id) => {
     const product = await productModel.getById(id);
-     if (!product) return null;
+    if (!product) return null;
 
     return product;
   },
