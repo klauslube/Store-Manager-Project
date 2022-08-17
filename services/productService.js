@@ -17,6 +17,7 @@ const productService = {
   create: async (name) => {
     const id = await productModel.create(name);
     const product = { id, name };
+    // console.log(product);
     return product;
   },
   check: async (productId) => {
@@ -27,13 +28,13 @@ const productService = {
     const checkId = await productModel.getById(id);
     if (!checkId) return null;
     const response = await productModel.update(id, name);
-
     return response;
   },
   delete: async (id) => {
     const checkId = await productModel.getById(id);
     if (!checkId) return null;
     const response = await productModel.delete(id);
+    console.log(response);
     return response;
   },
 };

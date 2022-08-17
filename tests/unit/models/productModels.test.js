@@ -7,7 +7,7 @@ const productModel = require('../../../models/productModel');
 const mockProducts = [
 	{
 		"id": 1,
-		"name": "Martelo de Thor"
+		"name": "Machado do Thor Stormbreaker"
 	},
 	{
 		"id": 2,
@@ -41,8 +41,8 @@ describe('Teste Products Model', () => {
 
   describe('teste de getById', () => {
     describe('ao achar produto com id informado', () => {
-      it('retorna o produto escolhido', async () => {
-        const query = { "id": 1, "name": "Martelo de Thor" }
+      it('retorna um objeto com chave id e name', async () => {
+        const query = { "id": 1, "name": "Machado do Thor Stormbreaker" }
         sinon.stub(connection, 'query').resolves([[query]]);
         const product = await productModel.getById(1);
         expect(product).to.be.an('object');
@@ -51,12 +51,73 @@ describe('Teste Products Model', () => {
     })
 
     describe('ao não achar produto com id informado', () => {
-      it('retorna status e message de produto nao encontrado ', async () => {
+      it('retorna null ', async () => {
         const query = [[]];
         sinon.stub(connection, 'query').resolves(query);
         const product = await productModel.getById(999);
         expect(product).to.equal(null);
       })
     })
+  })
+
+  describe('teste de create', () => {
+    describe('ao ter um produto criado', () => {
+      it('retorna o id do novo produto', async () => {
+        const query = [{ insertId: 4 }];
+        sinon.stub(connection, 'query').resolves(query);
+        const product = await productModel.create("ProdutoX");
+        expect(product).to.be.an('number');
+        expect(product).to.be.equal(4);
+      })
+    })
+    describe('ao nao ter passado um name', () => {
+      it('retorna undefined', async () => {
+        const query = [[]];
+        sinon.stub(connection, 'query').resolves(query);
+        const product = await productModel.create();
+        expect(product).to.equal(undefined);
+      })
+    })
+  })
+
+  describe('teste de update', () => {
+    describe('ao ter um produto atualizado', () => {
+      it('retorna um objeto com chave name', async () => {
+        const query = [{ id: 1, name: "Machado do Thor Stormbreaker" }];
+        sinon.stub(connection, 'query').resolves(query);
+        const product = await productModel.update(1, "Martelo do Batman");
+        console.log(product);
+        expect(product).to.be.an('object');
+        expect(product).to.be.all.keys('id','name');
+      })
+    })
+    // describe('ao nao ter passado um id', () => {
+    //   it('retorna undefined', async () => {
+    //     const query = [[]];
+    //     sinon.stub(connection, 'query').resolves(query);
+    //     const product = await productModel.update();
+    //     expect(product).to.equal(undefined);
+    //   })
+    // })
+  })
+
+  describe('teste de delete', () => {
+    describe('ao ter um produto deletado', () => {
+      it('retorna um objeto', async () => {
+        const query = [[{ "name": "ProdutoX" }]];
+        sinon.stub(connection, 'query').resolves(query);
+        const product = await productModel.delete('');
+        expect(product).to.be.a('object');
+      })
+    })
+    // describe('ao nao ter passado um id', () => {
+    //   it('retorna undefined', async () => {
+    //     const query = [[]];
+    //     sinon.stub(connection, 'query').resolves(query);
+    //     const product = await productModel.delete();
+    //     console.log(product);
+    //     expect(product).to.equal(undefined);
+    //   })
+    // })
   })
 })
