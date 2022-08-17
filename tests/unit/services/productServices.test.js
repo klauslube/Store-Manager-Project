@@ -126,8 +126,7 @@ describe('Teste Products Service', () => {
     })
     describe('ao nao ter passado um id', () => {
       it('retorna null', async () => {
-        const query = [[]];
-        sinon.stub(productModel, 'delete').resolves(query);
+        sinon.stub(productModel, 'getById').resolves();
         const product = await productService.delete();
         expect(product).to.equal(null);
       })
