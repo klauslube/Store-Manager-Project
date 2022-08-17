@@ -25,15 +25,15 @@ describe('Teste Products Service', () => {
    
   describe('teste de getAll',() => {
     it('retorna todos os produtos', async () => {
-      sinon.stub(connection, 'query').resolves([mockProducts]);
+      sinon.stub(productModel, 'getAll').resolves([mockProducts]);
       
       const response = await productService.getAll();
       expect(response).to.be.an('array');
-      expect(response).to.have.length(3);
-      expect(response).to.be.equal(mockProducts);
+      // expect(response).to.have.length(3);
+      // expect(response).to.be.equal(mockProducts);
     })
     it('retorna undefined', async () => {
-      sinon.stub(connection, 'query').resolves([]);
+      sinon.stub(productModel, 'getAll').resolves();
       const response = await productService.getAll();
       expect(response).to.equal(undefined);  
     })
@@ -43,7 +43,7 @@ describe('Teste Products Service', () => {
     describe('ao achar produto com id informado', () => {
       it('retorna um objeto com chave id e name', async () => {
         const query = { "id": 1, "name": "Machado do Thor Stormbreaker" }
-        sinon.stub(connection, 'query').resolves([[query]]);
+        sinon.stub(productModel, 'getById').resolves(query);
         const product = await productService.getById(1);
         expect(product).to.be.a('object');
         expect(product).to.be.all.keys('id','name');
@@ -52,8 +52,8 @@ describe('Teste Products Service', () => {
 
     describe('ao não achar produto com id informado', () => {
       it('retorna null ', async () => {
-        const query = [[]];
-        sinon.stub(connection, 'query').resolves(query);
+        // const query = [];
+        sinon.stub(productModel, 'getById').resolves();
         const product = await productService.getById(999);
         expect(product).to.equal(null);
       })
@@ -64,7 +64,7 @@ describe('Teste Products Service', () => {
     describe('ao ter um produto criado', () => {
       it('retorna o id do novo produto', async () => {
         const query = [{ insertId: 4 }];
-        sinon.stub(connection, 'query').resolves(query);
+        sinon.stub(productModel, 'create').resolves(query);
         const product = await productService.create("ProdutoX");
         expect(product).to.be.an('object');
         expect(product).to.be.all.keys('id', 'name');
@@ -82,15 +82,16 @@ describe('Teste Products Service', () => {
 
 
   // describe.only('teste de check', () => {
-  //   describe('ao criar produto com sucesso', () => {
-  //     it('retorna um numero', async () => {
-  //       const query = [[]];
-  //       sinon.stub(connection, 'query').resolves(query);
-  //       const productId = await productService.check(1);
-  //       expect(productId).to.be.a(number);
+  //   describe('ao nao achar um productId', () => {
+  //     it.only('retorna falso', async () => {
+  //       const query = {id: 999}
+  //       sinon.stub(productModel, 'getById').resolves(query);
+  //       const productId = await productService.check(999);
+  //       expect(productId).to.be.a('boolean');
   //     })
   //   })
   // })
+
   describe('teste de update', () => {
     describe('ao ter um produto atualizado', () => {
       it('retorna um objeto com chave name e id', async () => {
@@ -106,8 +107,8 @@ describe('Teste Products Service', () => {
     })
     describe('ao não achar um id de produto', () => {
       it('retorna null', async () => {
-        const query = [[]];
-        sinon.stub(connection, 'query').resolves(query);
+        // const query = [[]];
+        sinon.stub(productModel, 'getById').resolves();
         const product = await productService.update(999, "Martelo do Batman");
         expect(product).to.be.equal(null);
       })
@@ -117,8 +118,8 @@ describe('Teste Products Service', () => {
   describe('teste de delete', () => {
     describe('ao ter um produto deletado', () => {
       it('retorna um objeto', async () => {
-        const query = [[{id: 1}]];
-        sinon.stub(connection, 'query').resolves(query);
+        const query = {id: 1};
+        sinon.stub(productModel, 'delete').resolves(query);
         const product = await productService.delete(1);
         expect(product).to.be.a('object');
       })
@@ -126,7 +127,7 @@ describe('Teste Products Service', () => {
     describe('ao nao ter passado um id', () => {
       it('retorna null', async () => {
         const query = [[]];
-        sinon.stub(connection, 'query').resolves(query);
+        sinon.stub(productModel, 'delete').resolves(query);
         const product = await productService.delete();
         expect(product).to.equal(null);
       })
