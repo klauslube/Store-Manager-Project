@@ -30,7 +30,7 @@ const salesController = {
 
     update: async (req, res) => {
     const { id } = req.params;
-      const updatedSale = await salesService.update(id, req.body);
+    const updatedSale = await salesService.update(id, req.body);
     if (!updatedSale) return res.status(404).json({ message: 'Sale not found' });
     
     return res.status(200).json(updatedSale);

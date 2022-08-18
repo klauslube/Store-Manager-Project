@@ -42,7 +42,7 @@ const testMyController = async (controller, request = BASIC_REQ) => {
     }
   }
   const spyJson = sinon.spy(response, 'json');
-  const spyStatus = sinon.spy(response, 'status')
+  const spyStatus = sinon.spy(response, 'status');
   
   await controller(request, response)
   return {...result, spies: {json: spyJson, status: spyStatus}}
@@ -72,7 +72,7 @@ describe('Teste de product Controllers', () => {
       expect(result.status).to.be.equal(201);
     })
     it('status chamado com 200 na funcao update', async () => {
-      sinon.stub(productService, 'update').resolves({name: 'teste'});
+      sinon.stub(productService, 'update').resolves({id: 1, name: 'teste'});
       const result = await testMyController(productController.update, {params: 1} , {body: {name: 'Martelo do Batman'}});
       // console.log(result);
       expect(result.status).to.be.equal(200);
