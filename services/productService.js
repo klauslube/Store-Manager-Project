@@ -17,7 +17,6 @@ const productService = {
   create: async (name) => {
     const id = await productModel.create(name);
     const product = { id, name };
-    // console.log(product);
     return product;
   },
   check: async (productId) => {

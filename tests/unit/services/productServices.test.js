@@ -79,16 +79,15 @@ describe('Teste Products Service', () => {
     // })
   })
 
-  // describe.only('teste de check', () => {
-  //   describe('ao nao achar um productId', () => {
-  //     it.only('retorna falso', async () => {
-  //       const query = {id: 999}
-  //       sinon.stub(productModel, 'getById').resolves(query);
-  //       const productId = await productService.check(999);
-  //       expect(productId).to.be.a('boolean');
-  //     })
-  //   })
-  // })
+  describe('teste de check', () => {
+    describe('ao nao achar um productId', () => {
+      it('retorna falso', async () => {
+        sinon.stub(productModel, 'getById').resolves();
+        const productId = await productService.check(999);
+        expect(productId).to.be.a('boolean');
+      })
+    })
+  })
 
   describe('teste de update', () => {
     describe('ao ter um produto atualizado', () => {

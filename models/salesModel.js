@@ -36,6 +36,7 @@ const salesModel = {
      const [result] = await connection.query(query,
        [id]);
     if (result.length === 0) return null;
+    console.log(result);
     return result;
   },
 

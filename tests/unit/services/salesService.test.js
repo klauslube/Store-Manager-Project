@@ -4,6 +4,7 @@ const { expect } = require('chai');
 const salesService = require('../../../services/salesService');
 const salesModel = require('../../../models/salesModel');
 
+
 const saleAllMock = [
 	{
 		"saleId": 1,
@@ -25,7 +26,17 @@ const saleAllMock = [
 	}
 ]
 
-describe.only('Teste salesService', () => {
+const saleMock = {
+	"saleId": 2,
+	"itemsUpdated": [
+		{
+			"productId": 1,
+			"quantity": 5
+		},
+	]
+}
+
+describe('Teste salesService', () => {
   beforeEach(sinon.restore)
    
   describe('teste de createSale', () => {
@@ -45,7 +56,7 @@ describe.only('Teste salesService', () => {
   
       const sale = await salesService.getAll();
       expect(sale).to.be.an('array');
-      expect(sale).to.be.equal(saleAllMock);
+      expect(sale).to.be.deep.equal(saleAllMock);
     })
   })
   
@@ -55,7 +66,7 @@ describe.only('Teste salesService', () => {
   
       const sale = await salesService.getById(2);
       expect(sale).to.be.an('object');
-      expect(sale).to.be.equal(saleAllMock[2]);
+      expect(sale).to.be.deep.equal(saleAllMock[2]);
     })
     it('retorn null ao não achar o id', async () => {
       sinon.stub(salesModel, 'getById').resolves();
@@ -66,22 +77,38 @@ describe.only('Teste salesService', () => {
   })
 
   describe('teste de delete', () => {
-    it('retorna null', async () => {
+    it('retorna um objeto do saleId', async () => {
+      sinon.stub(salesModel, 'getById').resolves([ { date: '2022-08-18T01:28:08.000Z', productId: 3, quantity: 15 } ]);
+      sinon.stub(salesModel, 'delete').resolves({ id: 1 });
+      
+      const sale = await salesService.delete(1);
+      expect(sale).to.be.an('object');
+    })
+    it('retorna null ao nao passar id', async () => {
+      sinon.stub(salesModel, 'getById').resolves();
       sinon.stub(salesModel, 'delete').resolves({id: 1});
   
       const sale = await salesService.delete(1);
-      // expect(sale).to.be.an('object');
       expect(sale).to.be.equal(null);
     })
   })
 
-  // describe('teste de update', () => {
-  //   it('retorna objeto sale atualizada', async () => {
-  //     sinon.stub(salesModel, 'update').resolves({productId: 1, quantity: 5});
-  
-  //     const sale = await salesService.update({saleId: 1, saleArr:[1, 2]});
-  //     expect(sale).to.be.an('object');
-  //     // expect(sale).to.be.equal();
-  //   })
-  // })
+  describe('teste de update', () => {
+    it('retorna objeto sale atualizada', async () => {
+      sinon.stub(salesModel, 'getById').resolves([ { date: '2022-08-18T01:28:08.000Z', productId: 3, quantity: 15 } ]);
+      sinon.stub(salesModel, 'update').resolves({ productId: 1, quantity: 5 });
+      
+      const sale = await salesService.update(2, [{productId: 1, quantity: 5}]);
+      expect(sale).to.be.an('object');
+      expect(sale).to.be.deep.equal(saleMock);
+    })
+    it('retorna null ao nao achar idSale correto', async () => {
+      sinon.stub(salesModel, 'getById').resolves();
+      sinon.stub(salesModel, 'update').resolves({ productId: 1, quantity: 5 });
+      
+      const sale = await salesService.update(null, [{ productId: 1, quantity: 5 }]);
+      expect(sale).to.be.equal(null);
+      
+    })
+  })
 })
