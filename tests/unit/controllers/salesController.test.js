@@ -59,7 +59,8 @@ beforeEach(sinon.restore);
   
   describe("teste de createSale", () => {
     it('caso OK', async () => {
-      sinon.stub(salesService, 'createSale').resolves(saleCreateMock.id, saleCreateMock.itemsSold);
+      const saleObj = { id: saleCreateMock.id, itemsSold: saleCreateMock.itemsSold };
+      sinon.stub(salesService, 'createSale').resolves(saleObj);
 
       const req = {};
       const res = {};
@@ -79,7 +80,7 @@ beforeEach(sinon.restore);
 
       await salesController.createSale(req, res);
       expect(res.status.calledWith(201)).to.be.true;
-      expect(res.json.calledWith(saleCreateMock)).to.be.true;
+      expect(res.json.calledWith(saleObj)).to.be.true;
     })
   })
     describe("teste de getAll", () => {
@@ -159,7 +160,8 @@ beforeEach(sinon.restore);
   })
   describe("teste de update", () => {
     it('caso OK', async () => {
-      sinon.stub(salesService, 'update').resolves(saleAllMock[2].saleId, saleUpdatedMock.itemsUpdated);
+      const objSale = { saleId:saleAllMock[2].saleId, itemsUpdated: saleUpdatedMock.itemsUpdated }
+      sinon.stub(salesService, 'update').resolves(objSale);
 
       const req = {};
       const res = {};
@@ -179,7 +181,7 @@ beforeEach(sinon.restore);
 
       await salesController.update(req, res);
       expect(res.status.calledWith(200)).to.be.true;
-      expect(res.json.calledWith(saleUpdatedMock)).to.be.true;
+      expect(res.json.calledWith(objSale)).to.be.true;
     })
     it('caso NAO OK', async () => {
       sinon.stub(salesService, 'update').resolves(null);
