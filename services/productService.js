@@ -33,7 +33,6 @@ const productService = {
     const checkId = await productModel.getById(id);
     if (!checkId) return null;
     const response = await productModel.delete(id);
-    // console.log(response);
     return response;
   },
 };

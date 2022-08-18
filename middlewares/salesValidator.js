@@ -20,9 +20,7 @@ const salesMiddleware = (req, res, next) => {
 
 const checkProductId = async (req, res, next) => {
   const saleArr = req.body;
-  console.log(saleArr);
   const response = await Promise.all(saleArr.map((sale) => productService.check(sale.productId)));
-  console.log(response);
 
   if (response.some((r) => r === false)) {
     return res.status(404).json({ message: 'Product not found' });

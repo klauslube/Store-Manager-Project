@@ -23,7 +23,6 @@ const salesService = {
     const checkId = await salesModel.getById(id);
     if (!checkId) return null;
     const response = await salesModel.delete(id);
-    console.log(response);
     return response;
   },
 
