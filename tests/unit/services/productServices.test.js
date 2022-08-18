@@ -52,7 +52,6 @@ describe('Teste Products Service', () => {
 
     describe('ao não achar produto com id informado', () => {
       it('retorna null ', async () => {
-        // const query = [];
         sinon.stub(productModel, 'getById').resolves();
         const product = await productService.getById(999);
         expect(product).to.equal(null);
@@ -79,7 +78,6 @@ describe('Teste Products Service', () => {
     //   })
     // })
   })
-
 
   // describe.only('teste de check', () => {
   //   describe('ao nao achar um productId', () => {

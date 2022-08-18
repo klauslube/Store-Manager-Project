@@ -48,7 +48,7 @@ const testMyController = async (controller, request = BASIC_REQ) => {
   return {...result, spies: {json: spyJson, status: spyStatus}}
 }
 
-describe.only('Teste de product Controllers', () => {
+describe('Teste de product Controllers', () => {
   afterEach(sinon.restore)
   describe('Caso OK nas funcoes', () => {
     
@@ -77,7 +77,7 @@ describe.only('Teste de product Controllers', () => {
       // console.log(result);
       expect(result.status).to.be.equal(200);
     })
-    it.only('status chamado com 204 na funcao delete', async () => {
+    it('status chamado com 204 na funcao delete', async () => {
       sinon.stub(productService, 'delete').resolves([]);
       const result = await testMyController(productController.delete, {params: 1});
 

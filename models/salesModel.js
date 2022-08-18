@@ -35,12 +35,11 @@ const salesModel = {
     ORDER BY sale_id, product_id`;
      const [result] = await connection.query(query,
        [id]);
-    console.log('resultModel', result);
     if (result.length === 0) return null;
     return result;
   },
 
-    delete: async (id) => {
+  delete: async (id) => {
     await connection.query('DELETE FROM StoreManager.sales WHERE id  = ?', [id]);
     return { id };
   },
