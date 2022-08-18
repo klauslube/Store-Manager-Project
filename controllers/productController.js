@@ -19,7 +19,7 @@ const productController = {
     const { name } = req.body;
     
     const product = await productService.create(name);
-    res.status(201).json(product);
+    return res.status(201).json(product);
   },
 
   update: async (req, res) => {
