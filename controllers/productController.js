@@ -3,7 +3,7 @@ const productService = require('../services/productService');
 const productController = {
   getAll: async (req, res) => {
     const data = await productService.getAll();
-    res.status(200).json(data);
+    return res.status(200).json(data);
   },
 
   getById: async (req, res) => {
@@ -30,6 +30,7 @@ const productController = {
     
     return res.status(200).json(updatedProduct);
   },
+
   delete: async (req, res) => {
     const { id } = req.params;
     const deletedProduct = await productService.delete(id);

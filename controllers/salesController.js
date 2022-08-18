@@ -21,14 +21,15 @@ const salesController = {
     return res.status(200).json(sale);
   },
 
-   delete: async (req, res) => {
+  delete: async (req, res) => {
     const { id } = req.params;
     const deletedSale = await salesService.delete(id);
     if (!deletedSale) return res.status(404).json({ message: 'Sale not found' });
+     
     return res.status(204).send();
   },
 
-    update: async (req, res) => {
+  update: async (req, res) => {
     const { id } = req.params;
     const updatedSale = await salesService.update(id, req.body);
     if (!updatedSale) return res.status(404).json({ message: 'Sale not found' });

@@ -6,6 +6,7 @@ const salesModel = {
     const [{ insertId }] = await connection.query(query);
     return { id: insertId };
   },
+  
   createSaleProduct: async (saleInfo) => {
     const query = `INSERT INTO StoreManager.sales_products (sale_id,product_id,quantity)
     VALUES (?,?,?)`;
