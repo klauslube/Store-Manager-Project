@@ -25,7 +25,7 @@ const saleAllMock = [
 	}
 ]
 
-describe.only('testa salesModel', () => {
+describe('testa salesModel', () => {
   beforeEach(sinon.restore);
 
   describe('teste de createSale ', () => {
