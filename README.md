@@ -27,7 +27,9 @@ cd store-manager
 npm install
 ```
 ### Rodar aplicação sem Docker
+
 Crie um arquivo `.env` com sua conexão ao MySQL.
+
 
 ```
 cd store-manager
