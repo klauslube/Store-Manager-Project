@@ -14,11 +14,11 @@ Esse projeto é uma API RESTfull a qual gerência um sistema de vendas no format
  Esse projeto é um CRUD (create,read,update,delete) __Store API__ que se conecta a um banco de dados MySQL para gerenciar produtos e vendas de uma loja.  Para isso é utilizado de diversas ferramentas e implementado a arquitetura __MSC__ (model-service-controller).
 
 # Tecnologias, bibliotecas e arquiteturas usadas
-  * __Node.js, Express, Nodemon, Joi__ | [Create a HTTP API](http://expressjs.com/), [API routing](https://expressjs.com/en/guide/routing.html), [error handling](https://www.npmjs.com/package/express-async-errors), [improve API development](https://www.npmjs.com/package/nodemon), [data validation](https://joi.dev/api/?v=17.6.0).
-  * __Mocha, Chai, Sinon__ | [TDD and unit testing for Node.js](https://mochajs.org/).
-  * __MySQL__ | [Creating and managing databases](https://www.mysqltutorial.org/).
-  * __MSC__ | [Improve code organization, maintenance and scalability](https://martinfowler.com/architecture/).
-  * __REST__ | [Simple architecture and highly popular](https://restfulapi.net/).
+  * __Node.js, Express, Nodemon, Joi__ | [Criação de protocolo HTTP API](http://expressjs.com/), [Roteador de API](https://expressjs.com/en/guide/routing.html), [improve API development](https://www.npmjs.com/package/nodemon), [validação de data](https://joi.dev/api/?v=17.6.0).
+  * __Mocha, Chai, Sinon__ | [modelo TDD e testes unitarios](https://mochajs.org/).
+  * __MySQL__ | [Criação e gerenciamento de dados](https://www.mysqltutorial.org/).
+  * __MSC__ | [Arquiterura model, service, controller](https://martinfowler.com/architecture/).
+  * __REST__ | [Arquitetura Rest](https://restfulapi.net/).
 
 # Instruções da aplicação
 ### Instalar dependências
