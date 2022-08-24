@@ -23,7 +23,7 @@ Esse projeto é uma API RESTfull a qual gerência um sistema de vendas no format
 # Instruções da aplicação
 ### Instalar dependências
 ```
-cd store-manager
+cd store-manager-project
 npm install
 ```
 ### Rodar aplicação sem Docker
@@ -32,13 +32,13 @@ Crie um arquivo `.env` com sua conexão ao MySQL.
 
 
 ```
-cd store-manager
+cd store-manager-project
 npm run debug
 ```
 
 ### Rodando aplicação com Docker (arquivo docker-compose foi criado pela Trybe)
 ```
-cd store-manager
+cd store-manager-project
 docker-compose up -d
 docker exec -it store_manager bash
 npm install
